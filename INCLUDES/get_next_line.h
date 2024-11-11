@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:49:14 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/10 10:31:13 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:10:41 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-int		found_newline(t_list *list);
-t_list	*find_last_node(t_list *list);
+int		find_newline(t_list *list);
+t_list	*ft_lstlast(t_list *lst);
 int		len_to_newline(t_list *list);
 void	copy_str(t_list *list, char *str);
-void	dealloc(t_list **list, t_list *clean_node, char *buffer);
-void	polish_list(t_list **list);
+void	free_mem(t_list **list, t_list *clean_node, char *buffer);
+void	prepare_list(t_list **list);
 char	*get_line(t_list *list);
-void	append(t_list **list, char *buf);
+void	add_to_list(t_list **list, char *buf);
 void	create_list(t_list **list, int fd);
 #endif

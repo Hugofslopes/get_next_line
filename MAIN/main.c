@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:08:13 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/10 10:21:38 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:41:59 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 int	main(void)
 {
-	int		fd;
-	char	*line;
+	int				fd;
+	char			*line;
+	unsigned int	i;
 
-	fd = open("doc.txt", O_RDONLY);
-	printf("FD:\n%d\n", fd);
-
+	i = 0;
+	fd = open("/home/hfilipe-/42/get_next_line/test/test.txt", O_RDONLY);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		printf("%s", line);
+		printf("%u- %s", i++, line);
 		free (line);
 		line = get_next_line(fd);
 	}

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 21:20:00 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/10 10:49:58 by hfilipe-         ###   ########.fr       */
+/*   Created: 2024/11/11 13:18:18 by hfilipe-          #+#    #+#             */
+/*   Updated: 2024/11/11 13:18:29 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-int	found_newline(t_list *list)
+int	find_newline(t_list *list)
 {
 	int	i;
 
 	if (!list)
-		return (-1);
+		return (0);
 	while (list)
 	{
 		i = 0;
@@ -32,19 +32,22 @@ int	found_newline(t_list *list)
 	return (0);
 }
 
-t_list	*find_last_node(t_list *list)
+t_list	*ft_lstlast(t_list *lst)
 {
-	if (!list)
+	t_list	*tmp_list;
+
+	tmp_list = lst;
+	if (!lst)
 		return (NULL);
-	while (list->next)
-		list = list->next;
-	return (list);
+	while (tmp_list->next)
+		tmp_list = tmp_list->next;
+	return (tmp_list);
 }
 
 int	len_to_newline(t_list *list)
 {
 	size_t	i;
-	size_t		len;
+	size_t	len;
 
 	if (!list)
 		return (-1);
@@ -74,6 +77,7 @@ void	copy_str(t_list *list, char *str)
 
 	if (!list)
 		return ;
+	j = 0;
 	while (list)
 	{
 		i = 0;
@@ -92,7 +96,7 @@ void	copy_str(t_list *list, char *str)
 	str[j] = '\0';
 }
 
-void	dealloc(t_list **list, t_list *clean_node, char *buffer)
+void	free_mem(t_list **list, t_list *clean_node, char *buffer)
 {
 	t_list	*tmp;
 
