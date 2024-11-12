@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 19:55:16 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 12:56:04 by hfilipe-         ###   ########.fr       */
+/*   Created: 2024/11/11 11:56:24 by hfilipe-          #+#    #+#             */
+/*   Updated: 2024/11/12 16:28:45 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	prepare_list(t_list **list)
 {
@@ -40,7 +40,7 @@ void	prepare_list(t_list **list)
 	clean_list(list, clean_node, buffer);
 }
 
-char	*get_line(t_list *list)
+char	*get_new_line(t_list *list)
 {
 	size_t	str_len;
 	char	*next_str;
@@ -55,7 +55,7 @@ char	*get_line(t_list *list)
 	return (next_str);
 }
 
-void	add_to_list(t_list **list, char *buf)
+int	add_to_list(t_list **list, char *buf)
 {
 	t_list	*new_node;
 	t_list	*last_node;
@@ -63,16 +63,17 @@ void	add_to_list(t_list **list, char *buf)
 	last_node = ft_lstlast(*list);
 	new_node = malloc(sizeof(t_list));
 	if (!new_node)
-		return ;
+		return (-1);
 	if (last_node == NULL)
 		*list = new_node;
 	else
 		last_node->next = new_node;
 	new_node->str_buffer = buf;
 	new_node->next = NULL;
+	return (0);
 }
 
-void	create_list(t_list **list, int fd)
+int	create_list(t_list **list, int fd)
 {
 	int		char_read;
 	char	*buffer;
@@ -81,29 +82,30 @@ void	create_list(t_list **list, int fd)
 	{
 		buffer = malloc (BUFFER_SIZE + 1);
 		if (!buffer)
-			return ;
+			return (-1);
 		char_read = read(fd, buffer, BUFFER_SIZE);
 		if (!char_read)
 		{
 			free (buffer);
-			return ;
+			return (-1);
 		}
 		buffer[char_read] = '\0';
 		add_to_list(list, buffer);
 	}
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list = NULL;
+	static t_list	*list[MAX_FD];
 	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	create_list(&list, fd);
-	if (!list)
+	create_list(&list[fd], fd);
+	if (!list[fd])
 		return (NULL);
-	next_line = get_line(list);
-	prepare_list(&list);
+	next_line = get_new_line(list[fd]);
+	prepare_list(&list[fd]);
 	return (next_line);
 }

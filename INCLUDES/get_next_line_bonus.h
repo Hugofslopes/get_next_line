@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:14:45 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:19:07 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:56:05 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_list
 char	*get_next_line(int fd);
 int		find_newline(t_list *list);
 t_list	*ft_lstlast(t_list *lst);
-int		len_to_newline(t_list *list);
+size_t		get_newline_len(t_list *list);
 void	copy_str(t_list *list, char *str);
-void	free_mem(t_list **list, t_list *clean_node, char *buffer);
+void	clean_list(t_list **list, t_list *clean_node, char *buffer);
 void	prepare_list(t_list **list);
 char	*get_line(t_list *list);
 void	add_to_list(t_list **list, char *buf);

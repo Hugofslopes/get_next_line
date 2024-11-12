@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:56:24 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/11 15:15:19 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:56:06 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	prepare_list(t_list **list)
 	buffer[j] = '\0';
 	clean_node->str_buffer = buffer;
 	clean_node->next = NULL;
-	free_mem(list, clean_node, buffer);
+	clean_list(list, clean_node, buffer);
 }
 
 char	*get_line(t_list *list)
@@ -48,7 +48,7 @@ char	*get_line(t_list *list)
 
 	if (list == NULL)
 		return (NULL);
-	str_len = len_to_newline(list);
+	str_len = get_newline_len(list);
 	next_str = malloc(str_len + 1);
 	if (!next_str)
 		return (NULL);

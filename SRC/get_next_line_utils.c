@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 21:20:00 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/11 11:55:16 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:56:03 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list	*ft_lstlast(t_list *lst)
 	return (tmp_list);
 }
 
-int	len_to_newline(t_list *list)
+size_t	get_newline_len(t_list *list)
 {
 	size_t	i;
 	size_t	len;
@@ -96,7 +96,7 @@ void	copy_str(t_list *list, char *str)
 	str[j] = '\0';
 }
 
-void	free_mem(t_list **list, t_list *clean_node, char *buffer)
+void	clean_list(t_list **list, t_list *clean_node, char *buffer)
 {
 	t_list	*tmp;
 

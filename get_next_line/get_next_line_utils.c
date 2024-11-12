@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 13:18:18 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 12:56:03 by hfilipe-         ###   ########.fr       */
+/*   Created: 2024/11/08 21:20:00 by hfilipe-          #+#    #+#             */
+/*   Updated: 2024/11/12 16:54:36 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	find_newline(t_list *list)
 {
@@ -98,16 +98,16 @@ void	copy_str(t_list *list, char *str)
 
 void	clean_list(t_list **list, t_list *clean_node, char *buffer)
 {
-	t_list	*tmp_list;
+	t_list	*tmp;
 
 	if (!list)
 		return ;
 	while (*list)
 	{
-		tmp_list = (*list)->next;
+		tmp = (*list)->next;
 		free ((*list)->str_buffer);
 		free (*list);
-		*list = tmp_list;
+		*list = tmp;
 	}
 	*list = NULL;
 	if (clean_node->str_buffer[0])

@@ -6,13 +6,13 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:55:16 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 12:56:04 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:58:04 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	prepare_list(t_list **list)
+int	prepare_list(t_list **list)
 {
 	t_list	*last_node;
 	t_list	*clean_node;
@@ -22,10 +22,10 @@ void	prepare_list(t_list **list)
 
 	buffer = malloc(BUFFER_SIZE +1);
 	if (!buffer)
-		return ;
+		return (-1);
 	clean_node = malloc(sizeof(t_list));
 	if (!buffer)
-		return ;
+		return (-1);
 	i = 0;
 	j = 0;
 	last_node = ft_lstlast(*list);
@@ -38,9 +38,10 @@ void	prepare_list(t_list **list)
 	clean_node->str_buffer = buffer;
 	clean_node->next = NULL;
 	clean_list(list, clean_node, buffer);
+	return (0);
 }
 
-char	*get_line(t_list *list)
+char	*get_new_line(t_list *list)
 {
 	size_t	str_len;
 	char	*next_str;
@@ -55,7 +56,7 @@ char	*get_line(t_list *list)
 	return (next_str);
 }
 
-void	add_to_list(t_list **list, char *buf)
+int	add_to_list(t_list **list, char *buf)
 {
 	t_list	*new_node;
 	t_list	*last_node;
@@ -63,16 +64,17 @@ void	add_to_list(t_list **list, char *buf)
 	last_node = ft_lstlast(*list);
 	new_node = malloc(sizeof(t_list));
 	if (!new_node)
-		return ;
+		return (-1);
 	if (last_node == NULL)
 		*list = new_node;
 	else
 		last_node->next = new_node;
 	new_node->str_buffer = buf;
 	new_node->next = NULL;
+	return (0);
 }
 
-void	create_list(t_list **list, int fd)
+int	create_list(t_list **list, int fd)
 {
 	int		char_read;
 	char	*buffer;
@@ -81,16 +83,17 @@ void	create_list(t_list **list, int fd)
 	{
 		buffer = malloc (BUFFER_SIZE + 1);
 		if (!buffer)
-			return ;
+			return (-1);
 		char_read = read(fd, buffer, BUFFER_SIZE);
 		if (!char_read)
 		{
 			free (buffer);
-			return ;
+			return (-1);
 		}
 		buffer[char_read] = '\0';
 		add_to_list(list, buffer);
 	}
+	return (0);
 }
 
 char	*get_next_line(int fd)
@@ -103,7 +106,7 @@ char	*get_next_line(int fd)
 	create_list(&list, fd);
 	if (!list)
 		return (NULL);
-	next_line = get_line(list);
+	next_line = get_new_line(list);
 	prepare_list(&list);
 	return (next_line);
 }
