@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:18:18 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/13 11:44:41 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:19:42 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,26 @@ size_t	get_newline_len(t_list *list)
 	return (len);
 }
 
-void	copy_str(t_list *list, char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
+	void	*ptr;
+	size_t	total_bytes;
 	size_t	i;
-	size_t	j;
+	char	*str;
 
-	if (!list)
-		return ;
-	j = 0;
-	while (list)
-	{
-		i = 0;
-		while (list->str_buffer[i])
-		{
-			if (list->str_buffer[i] == '\n')
-			{
-				str[j++] = '\n';
-				str[j] = '\0';
-				return ;
-			}
-			str[j++] = list->str_buffer[i++];
-		}
-		list = list->next;
-	}
-	str[j] = '\0';
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	total_bytes = nmemb * size;
+	if ((total_bytes / size) != nmemb)
+		return (NULL);
+	ptr = malloc(total_bytes);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	str = (char *)ptr;
+	while (i < total_bytes)
+		str[i++] = '\0';
+	return (ptr);
 }
 
 void	clean_list(t_list **list, t_list *clean_node, char *buffer)
