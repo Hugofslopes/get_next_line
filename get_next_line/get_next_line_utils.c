@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 21:20:00 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 16:54:36 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:09:10 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ size_t	get_newline_len(t_list *list)
 	size_t	len;
 
 	if (!list)
-		return (-1);
+		return (0);
 	len = 0;
 	while (list)
 	{
@@ -59,7 +59,7 @@ size_t	get_newline_len(t_list *list)
 		{
 			if (list->str_buffer[i] == '\n')
 			{
-				++len;
+				len++;
 				return (len);
 			}
 			i++;
@@ -68,32 +68,6 @@ size_t	get_newline_len(t_list *list)
 		list = list->next;
 	}
 	return (len);
-}
-
-void	copy_str(t_list *list, char *str)
-{
-	size_t	i;
-	size_t	j;
-
-	if (!list)
-		return ;
-	j = 0;
-	while (list)
-	{
-		i = 0;
-		while (list->str_buffer[i])
-		{
-			if (list->str_buffer[i] == '\n')
-			{
-				str[j++] = '\n';
-				str[j] = '\0';
-				return ;
-			}
-			str[j++] = list->str_buffer[i++];
-		}
-		list = list->next;
-	}
-	str[j] = '\0';
 }
 
 void	clean_list(t_list **list, t_list *clean_node, char *buffer)
@@ -110,11 +84,33 @@ void	clean_list(t_list **list, t_list *clean_node, char *buffer)
 		*list = tmp;
 	}
 	*list = NULL;
-	if (clean_node->str_buffer[0])
+	if (clean_node && clean_node->str_buffer && clean_node->str_buffer[0])
 		*list = clean_node;
 	else
 	{
 		free (buffer);
 		free (clean_node);
 	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+	size_t	total_bytes;
+	size_t	i;
+	char	*str;
+
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	total_bytes = nmemb * size;
+	if ((total_bytes / size) != nmemb)
+		return (NULL);
+	ptr = malloc(total_bytes);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	str = (char *)ptr;
+	while (i < total_bytes)
+		str[i++] = '\0';
+	return (ptr);
 }

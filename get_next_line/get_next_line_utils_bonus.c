@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:18:18 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 15:06:14 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:44:41 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ size_t	get_newline_len(t_list *list)
 		{
 			if (list->str_buffer[i] == '\n')
 			{
-				++len;
+				len++;
 				return (len);
 			}
 			i++;

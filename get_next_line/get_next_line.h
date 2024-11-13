@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:49:14 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 16:56:59 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:03:32 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_list	*ft_lstlast(t_list *lst);
 size_t	get_newline_len(t_list *list);
 void	copy_str(t_list *list, char *str);
 void	clean_list(t_list **list, t_list *clean_node, char *buffer);
-int		prepare_list(t_list **list);
+void	prepare_list(t_list **list);
 char	*get_new_line(t_list *list);
-int		add_to_list(t_list **list, char *buf);
-int		create_list(t_list **list, int fd);
+void	add_to_list(t_list **list, char *buf);
+void	*ft_calloc(size_t nmemb, size_t size);
 #endif

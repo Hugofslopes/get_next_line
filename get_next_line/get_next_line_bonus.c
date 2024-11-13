@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:56:24 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/12 16:28:45 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:02:32 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	prepare_list(t_list **list)
 	int		j;
 	char	*buffer;
 
-	buffer = malloc(BUFFER_SIZE +1);
+	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buffer)
 		return ;
-	clean_node = malloc(sizeof(t_list));
-	if (!buffer)
+	clean_node = ft_calloc(sizeof(t_list), 1);
+	if (!clean_node)
 		return ;
 	i = 0;
 	j = 0;
@@ -48,64 +48,75 @@ char	*get_new_line(t_list *list)
 	if (list == NULL)
 		return (NULL);
 	str_len = get_newline_len(list);
-	next_str = malloc(str_len + 1);
+	next_str = ft_calloc(str_len + 1, sizeof(char));
 	if (!next_str)
 		return (NULL);
 	copy_str(list, next_str);
 	return (next_str);
 }
 
-int	add_to_list(t_list **list, char *buf)
+void	add_to_list(t_list **list, char *buf)
 {
 	t_list	*new_node;
 	t_list	*last_node;
 
 	last_node = ft_lstlast(*list);
-	new_node = malloc(sizeof(t_list));
+	new_node = ft_calloc(sizeof(t_list), 1);
 	if (!new_node)
-		return (-1);
+		return ;
 	if (last_node == NULL)
 		*list = new_node;
 	else
 		last_node->next = new_node;
 	new_node->str_buffer = buf;
 	new_node->next = NULL;
-	return (0);
-}
-
-int	create_list(t_list **list, int fd)
-{
-	int		char_read;
-	char	*buffer;
-
-	while (!find_newline(*list))
-	{
-		buffer = malloc (BUFFER_SIZE + 1);
-		if (!buffer)
-			return (-1);
-		char_read = read(fd, buffer, BUFFER_SIZE);
-		if (!char_read)
-		{
-			free (buffer);
-			return (-1);
-		}
-		buffer[char_read] = '\0';
-		add_to_list(list, buffer);
-	}
-	return (0);
 }
 
 char	*get_next_line(int fd)
 {
 	static t_list	*list[MAX_FD];
 	char			*next_line;
+	int				char_read;
+	char			*buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	create_list(&list[fd], fd);
-	if (!list[fd])
-		return (NULL);
+	while (!find_newline(list[fd]))
+	{
+		buffer = ft_calloc (BUFFER_SIZE + 1, sizeof(char));
+		if (!buffer)
+			return (NULL);
+		char_read = read(fd, buffer, BUFFER_SIZE);
+		if (char_read < 0)
+			return (free(buffer), NULL);
+		buffer[char_read] = '\0';
+		add_to_list(list, buffer);
+		if (char_read == 0)
+			break ;
+	}
 	next_line = get_new_line(list[fd]);
 	prepare_list(&list[fd]);
 	return (next_line);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+	size_t	total_bytes;
+	size_t	i;
+	char	*str;
+
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	total_bytes = nmemb * size;
+	if ((total_bytes / size) != nmemb)
+		return (NULL);
+	ptr = malloc(total_bytes);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	str = (char *)ptr;
+	while (i < total_bytes)
+		str[i++] = '\0';
+	return (ptr);
 }
