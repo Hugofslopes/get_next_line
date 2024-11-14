@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 21:20:00 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/13 21:44:21 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:52:23 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ size_t	get_newline_len(t_list *list)
 	return (len);
 }
 
-void	clean_list(t_list **list, t_list *clean_node, char *buffer)
+void	clean_list(t_list **list, t_list *clean_node, char *buf)
 {
 	t_list	*tmp;
 
+(void)buf;
 	if (!list)
 		return ;
 	while (*list)
@@ -84,12 +85,16 @@ void	clean_list(t_list **list, t_list *clean_node, char *buffer)
 		*list = tmp;
 	}
 	*list = NULL;
-	if (clean_node && clean_node->str_buffer && clean_node->str_buffer[0])
+	if (clean_node->str_buffer[0])
+	{
 		*list = clean_node;
+		free(buf);
+		free(clean_node);
+	}
 	else
 	{
-		free (buffer);
-		free (clean_node);
+		free(buf);
+		free(clean_node);
 	}
 }
 

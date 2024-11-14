@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:55:16 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:33:37 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:50:23 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,26 @@ void	prepare_list(t_list **list)
 	t_list	*clean_node;
 	int		i;
 	int		j;
-	char	*buffer;
+	char	*buf;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buffer)
-		return ;
+	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	clean_node = ft_calloc(sizeof(t_list), 1);
-	if (!clean_node)
-		return (free (buffer));
+	if (!clean_node || !buf)
+		return (free (buf));
 	i = 0;
 	j = 0;
 	last_node = ft_lstlast(*list);
 	if (!last_node)
-		return (free(buffer), free(clean_node));
-	while (last_node &&last_node->str_buffer[i] != '\0' && last_node->str_buffer[i] != \
+		return (free(buf), free(clean_node));
+	while (last_node->str_buffer[i] != '\0' && last_node->str_buffer[i] != \
 	'\n')
 		i++;
 	while (last_node->str_buffer[i++])
-		buffer[j++] = last_node->str_buffer[i];
-	buffer[j] = '\0';
-	clean_node->str_buffer = buffer;
+		buf[j++] = last_node->str_buffer[i];
+	buf[j] = '\0';
+	clean_node->str_buffer = buf;
 	clean_node->next = NULL;
-	clean_list(list, clean_node, buffer);
+	clean_list(list, clean_node, buf);
 }
 
 char	*get_new_line(t_list *list)

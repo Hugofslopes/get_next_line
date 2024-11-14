@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:56:24 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:32:14 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:58:18 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	prepare_list(t_list **list)
 	int		j;
 	char	*buffer;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1, 1);
-	if (!buffer)
-		return ;
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	clean_node = ft_calloc(sizeof(t_list), 1);
-	if (!clean_node)
-		return (free(buffer));
+	if (!clean_node || !buffer)
+		return (free (buffer));
 	i = 0;
 	j = 0;
 	last_node = ft_lstlast(*list);

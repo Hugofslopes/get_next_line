@@ -6,7 +6,7 @@
 /*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:01:51 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/13 20:12:04 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:40:56 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	int		i;
 	int		fd1, fd2, fd3, fd4, fd5;
 
-	//test 1char
+puts("\e[41mTEST ONE CHAR\e[0m");
 	fd1 = open("test.txt", O_RDONLY);
 	i = 1;
 	while (i <= 4)
@@ -34,7 +34,7 @@ int	main(void)
 	close(fd1);
 	puts("\n");
 	puts("\n");
-	//test same 1 char 
+puts("\e[41mTEST REOPEN SAME FILE\e[0m");
 	fd1 = open("test.txt", O_RDONLY);
 	i = 0;
 	while (i <= 4)
@@ -49,7 +49,50 @@ int	main(void)
 	close(fd1);
 	puts("\n");
 	puts("\n");
-	//test big 
+
+puts("\e[41mTEST EMPTY FILE\e[0m");
+	fd2 = open("test2.txt", O_RDONLY);
+	i = 0;
+	while (i <= 10)
+	{
+		line = get_next_line(fd1);
+		printf("txt3 %d: \033[34m%s\033[0m", i++, line);
+		free(line);
+		line = get_next_line(fd1);
+		printf("txt3 %d: \033[34m%s\033[0m", i++, line);
+		free(line);
+	}
+	close(fd2);
+	puts("\n");
+	puts("\n");
+
+puts("\e[41mTEST ONE \\n\e[0m");
+	fd1 = open("test5.txt", O_RDONLY);
+	i = 0;
+	while (i <= 3)
+	{
+		line = get_next_line(fd1);
+		printf("txt5 %d: \033[34m%s\033[0m", i++, line);
+		free(line);
+	}
+	close(fd1);
+	puts("\n");
+	puts("\n");
+
+puts("\e[41mTEST SEVERAL \\n\e[0m");
+	fd1 = open("test6.txt", O_RDONLY);
+	i = 0;
+	while (i <= 5)
+	{
+		line = get_next_line(fd1);
+		printf("txt6 %d: \033[34m%s\033[0m", i++, line);
+		free(line);
+	}
+	close(fd1);
+	puts("\n");
+	puts("\n");
+
+puts("\e[41mTEST BIG FILE\e[0m");
 	fd3 = open("test1.txt", O_RDONLY);
 	i = 0;
 	while (i <= 655)
@@ -64,7 +107,8 @@ int	main(void)
 	close(fd3);
 	puts("\n");
 	puts("\n");
-	//test 2 fd
+
+puts("\e[41mTEST ALTERNATING BETWEEN 2 DIFFERENT FILES\e[0m");
 	fd1 = open("test.txt", O_RDONLY);
 	fd3 = open("test1.txt", O_RDONLY);
 	i = 0;
@@ -81,22 +125,8 @@ int	main(void)
 	close(fd1);
 	puts("\n");
 	puts("\n");
-	//test empty
-	fd2 = open("test2.txt", O_RDONLY);
-	i = 0;
-	while (i <= 10)
-	{
-		line = get_next_line(fd1);
-		printf("txt3 %d: \033[34m%s\033[0m", i++, line);
-		free(line);
-		line = get_next_line(fd1);
-		printf("txt3 %d: \033[34m%s\033[0m", i++, line);
-		free(line);
-	}
-	close(fd2);
-	puts("\n");
-	puts("\n");
-	//test multiple
+
+puts("\e[41mTEST ALTERNATING BETWEEN 5 DIFFERENT FILES\e[0m");
 	fd1 = open("test.txt", O_RDONLY);
 	fd2 = open("test2.txt", O_RDONLY);
 	fd3 = open("test1.txt", O_RDONLY);
@@ -124,6 +154,4 @@ int	main(void)
 	}
 	close(fd3);
 	close(fd1);
-	puts("\n");
-	puts("\n");
 }
