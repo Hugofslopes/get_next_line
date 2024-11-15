@@ -5,20 +5,25 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (*str++)
+	while (*str)
+	{
 		i++;
+		if(*str++ == '\n')
+			return (i);
+	}
 	return (i);
 }
 
-int	find_newline(char *strgs, size_t *counter)
+int	find_newline(char *strgs)
 {
+	static size_t i = 0;
+	
 	if (!strgs)
 		return (0);
-	while (strgs[*counter] && counter > (counter - (BUFFER_SIZE + 1)))
+	while (strgs[i] || i < BUFFER_SIZE)
 	{
-		if (strgs[*counter] == '\n')
+		if (strgs[i++] == '\n')
 			return (1);
-		(*counter)++;
 	}
 	return (0);
 }
