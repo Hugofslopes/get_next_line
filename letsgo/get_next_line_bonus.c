@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 19:51:05 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/18 21:56:39 by hfilipe-         ###   ########.fr       */
+/*   Created: 2024/11/18 19:07:59 by hfilipe-          #+#    #+#             */
+/*   Updated: 2024/11/18 22:22:42 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*trim_strgs(char *strgs, size_t len, size_t i)
 {
@@ -114,18 +114,18 @@ int	copy_fd(int fd, char **strgs)
 
 char	*get_next_line(int fd)
 {
-	static char		*strgs;
+	static char		*strgs[MAX_FD];
 	char			*next_line;
 	int				i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	i = 1;
-	i = copy_fd(fd, &strgs);
+	i = copy_fd(fd, &strgs[fd]);
 	if (!i)
 		return (NULL);
-	if (!strgs)
+	if (!strgs[fd])
 		return (NULL);
-	next_line = verify_newline(&strgs);
+	next_line = verify_newline(&strgs[fd]);
 	return (next_line);
 }
