@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 18:34:11 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/17 18:48:54 by hfilipe-         ###   ########.fr       */
+/*   Created: 2024/11/18 09:58:55 by hfilipe-          #+#    #+#             */
+/*   Updated: 2024/11/19 09:37:28 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,79 +16,59 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
-	if (!str)
+	if (str == NULL)
 		return (0);
 	i = 0;
-	while (*str)
-	{
+	while (str[i])
 		i++;
-		if (*str++ == '\n')
-			return (i);
-	}
 	return (i);
 }
 
-int	find_newline(char *next_line)
+char	*alloc_for_nl(size_t j, size_t len, char **strgs)
 {
-	size_t	i = 0;
-
-	if (!next_line)
-		return (0);
-	while (next_line[i] || i < BUFFER_SIZE)
-	{
-		if (next_line[i++] == '\n')
-			return (1);
-	}
-	return (0);
-}
-
-char *handle_strgs (char *dst, char *strgs)
-{
+	char	*temp;
 	size_t	i;
 
+	if ((*strgs) == NULL)
+		return (malloc(0));
 	i = 0;
-	while (strgs[i])
+	temp = ft_calloc((j + 2), sizeof(char));
+	while ((*strgs)[i])
 	{
-		dst[i] = strgs[i];
-		if (dst[i++] == '\n')
-		{
-			dst[i] = '\0';
-			i--;
-			while (strgs[i])
-			{
-				strgs [i] = strgs[i + 1];
-				i++;
-			}
-			i--;
-			strgs[i] = '\0';
-			return (dst);
-		}
+		temp[i] = (*strgs)[i];
+		if (temp[i++] == '\n')
+			break ;
 	}
-	dst[i] = '\0';
-	return (dst);
+	temp[i] = '\0';
+	len -= i;
+	if (len <= 0)
+	{
+		free(*strgs);
+		*strgs = NULL;
+		return (temp);
+	}
+	*strgs = trim_strgs(*strgs, len, i);
+	return (temp);
 }
 
-char	*ft_memcoppy(char *new_ptr, char *next_line, char *strgs)
+char	*verify_newline(char **strgs)
 {
-	unsigned int	i;
+	size_t	len;
+	size_t	j;
+	char	*temp;
 
-	i = 0;
-	if (strgs != NULL)
+	j = 0;
+	if (*strgs == NULL)
+		return (malloc(0));
+	len = ft_strlen(*strgs);
+	while ((*strgs)[j] != '\0')
 	{
-		new_ptr = handle_strgs(new_ptr, strgs);
-		return(new_ptr);
+		if ((*strgs)[j] == '\n' || len <= 1)
+			break ;
+		j++;
 	}
-	if (next_line != NULL)
-	{
-		while (next_line[i])
-		{
-			new_ptr[i] = next_line[i];
-			i++;
-		}
-		next_line[i] = '\0';
-		return (new_ptr);
-	}
-	return (NULL);
+	temp = alloc_for_nl(j, len, strgs);
+	return (temp);
 }
 
 void	*ft_calloc(size_t nmemb, size_t size)
@@ -111,4 +91,18 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	while (i < total_bytes)
 		str[i++] = '\0';
 	return (ptr);
+}
+
+int	check_for_newline(char ***strgs)
+{
+	size_t	i;
+
+	i = 0;
+	while ((**strgs)[i])
+	{
+		if ((**strgs)[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
 }

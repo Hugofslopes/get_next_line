@@ -6,7 +6,7 @@
 #    By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/11 09:48:21 by hfilipe-          #+#    #+#              #
-#    Updated: 2024/11/11 10:37:10 by hfilipe-         ###   ########.fr        #
+#    Updated: 2025/01/09 12:44:04 by hfilipe-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,44 +14,28 @@ CC = cc
 AR = ar rcs
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
-SRC_DIR = ./SRC
-OBJ_DIR = ./OBJ
-MAIN_DIR =./MAIN
-SRC_FILES = $(addprefix $(SRC_DIR)/, get_next_line.c get_next_line_utils.c)
-OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-BONUS_FILES = $(addprefix $(SRC_DIR)/, get_next_line_bonus.c get_next_line_utils_bonus.c)
-LIB_NAME = get_next_line.a
-LIB_NAME_BONUS = get_next_line_bonus.a
-HEAD = ./INCLUDES
-MAIN_SRC = $(MAIN_DIR)/main.c
-MAIN_SRC2 = $(MAIN_DIR)/main_bonus.c
+BUFFER_SIZE = 1000
+SRC_FILES = get_next_line.c get_next_line_utils.c
+BONUS_FILES = get_next_line_bonus.c get_next_line_utils_bonus.c
+MAIN_SRC = tests_main/main.c
+MAIN_SRC2 = tests_main/main_bonus.c
+OBJ_FILES = $(SRC_FILES:.c=.o) $(MAIN_SRC:.c=.o)
+BONUS_OBJ_FILES = $(BONUS_FILES:.c=.o) $(MAIN_SRC2:.c=.o)
 EXEC = main
-EXECB = main2
+EXECB = mainbonus
 
-all: $(LIB_NAME)
-$(LIB_NAME): $(OBJ_FILES)
-	$(AR) $@ $^
+all: $(EXEC)
+$(EXEC): $(OBJ_FILES)
+	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) $^ -o $@ -g
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -I$(HEAD) $(CFLAGS) -c $< -o $@
+bonus: $(EXECB)
+$(EXECB): $(BONUS_OBJ_FILES)
+	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) $^ -o $@ -g
 
 clean:
-	$(RM) $(OBJ_DIR)/*.o
-
+	$(RM) $(OBJ_FILES) $(BONUS_OBJ_FILES)
+	
 fclean: clean
-	$(RM) $(LIB_NAME) $(EXEC) $(EXECB) $(LIB_NAME_BONUS)
+	$(RM) $(EXEC) $(EXECB) 
 
 re: fclean all 
-
-bonus: $(LIB_NAME_BONUS) 
-$(LIB_NAME_BONUS): $(BONUS_OBJ_FILES)
-	$(AR) $@ $^
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c	
-	$(CC) -I$(HEAD) $(CFLAGS) -c $< -o $@
-
-main: $(EXEC)
-	$(CC) -I$(HEAD) $(CFLAGS) $(SRC_FILES) $(MAIN_SRC) -o $(EXEC) -g
-
-main2: $(EXECB)
-	$(CC) -I$(HEAD) $(CFLAGS) $(BONUS_FILES) $(MAIN_SRC2) -o $(EXECB) -g
