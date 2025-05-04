@@ -13,7 +13,7 @@
 
 ## Code Phases
 <details>
-	<summary>Parsing</summary>
+	<summary><b>Parsing</b></summary>
 <ol>
     <li>First, we check if the file descriptor <b>(fd)</b> is smaller than 0. This happens because the first possible fd is <b>0</b>, which is standard input. <b>1</b> means <b>standard output</b> and <b>2</b> means <b>standard error</b>. After that, all other fds are created by the user, as shown in the example I provided in the main function using <b>open( )</b> to open some test files.</b></li>
 	<li>Check if the macro <b>BUFFER_SIZE</b> is greater than 0, because its value will determine the number of characters we will read.</li>
@@ -21,7 +21,7 @@
 </details>
 
 <details>
-	<summary>Get the line and save it to the statig variable</summary>
+	<summary><b>Get the line and save it to the statig variable</b></summary>
 <ol>
     <li>Call <b>copy_fd( )</b> to read from the provided file descriptor.</b>
 	<ol>
@@ -43,7 +43,7 @@
 </details>
 
 <details>
-	<summary>Bonus</summary>
+	<summary><b>Bonus</b></summary>
 The bonus part of this program follows the exact same structure as the mandatory one, with the only difference being the static variable. In this case, it will be an array of char arrays that stores the values for each file descriptor (fd) sent to the program.
 </details>
 
@@ -71,8 +71,3 @@ The bonus part of this program follows the exact same structure as the mandatory
 </p>
 
     make bonus ; ./mainbonus
-
-## Improvements
-<p>
-    
-</p>
