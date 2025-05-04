@@ -20,6 +20,19 @@
 </ol>
 </details>
 
+<details>
+	<summary>Get the line and save it to the statig variable</summary>
+<ol>
+    <li>Call <b>copy_fd( )</b> to read from the provided file descriptor.</b>
+	<ol>
+		<li>Alocate memory fot hte <b>buffer</b>> variable to storage the character read</b></li>
+		<li><b>Call read( )</b> with the parameters <b>fd</b> (the file descriptor from which it will be reading), <b>buffer</b> (which is the array of characters that we allocate memory for) and BUFFER_SIZE (the number of characters to be read).</li>
+		<li>It will be on a loop that continues until reaches the end of the file or finds the <b>'\n'</b> (meaning a new line).</li>
+		<li>Call <b>add_to_strgs( )</b> on each iteration of the loop to add the content read to the static variable.</li>
+		<li>Call <b>check_for_new_line( )</b> to check if the static variable already contains the new line.
+</ol>
+</details>
+
 
 ## Code Setup
 <p>
