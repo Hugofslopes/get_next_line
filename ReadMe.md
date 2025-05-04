@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Get next line</h1>
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/ca0ec9d2-b97d-4e3c-b646-5a03cf7bad6d" alt="Image" />
+    <img src="https://github.com/user-attachments/assets/4258ef7c-5659-418d-8e18-da68e25226d2" alt="Image" />
 </p>
 
 ## Summary
