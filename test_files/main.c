@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:08:13 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/19 11:14:38 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:23:40 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "get_next_line.h"
-#include "colors.h"
+#include "../includes/get_next_line.h"
+#include "../includes/colors.h"
 
 int	main(void)
 {

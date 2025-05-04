@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfilipe- <hfilipe-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfilipe- <hfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:01:51 by hfilipe-          #+#    #+#             */
-/*   Updated: 2024/11/19 11:30:42 by hfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:23:53 by hfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../includes/get_next_line_bonus.h"
 #include <stdio.h>
-#include "colors.h"
+#include "../includes/colors.h"
 
 int	main(void)
 {
