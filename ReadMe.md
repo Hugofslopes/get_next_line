@@ -45,7 +45,7 @@
 <details>
 	<summary>Bonus</summary>
 The bonus part of this program follows the exact same structure as the mandatory one, with the only difference being the static variable. In this case, it will be an array of char arrays that stores the values for each file descriptor (fd) sent to the program.
-<details>
+</details>
 
 ## Code Setup
 <p>
