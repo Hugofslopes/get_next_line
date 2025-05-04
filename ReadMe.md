@@ -8,7 +8,7 @@
 
 ## Summary
 <p>
-    <b>Get next line </b> is a 42 school project with the goal of reading the next file from a given file descriptor. It should compile with the flag <b>-D</b>, which will define the buffer size for reading."
+    <b>Get next line </b> is a 42 school project with the goal of reading the next file from a given file descriptor. It should compile with the flag <b>-D</b>, which will define the buffer size for reading. For this, we need to learn what a static variable is and understand what file descriptors are and how to properly manage them.
 </p>
 
 ## Code Phases
@@ -25,14 +25,27 @@
 <ol>
     <li>Call <b>copy_fd( )</b> to read from the provided file descriptor.</b>
 	<ol>
-		<li>Alocate memory fot hte <b>buffer</b>> variable to storage the character read</b></li>
-		<li><b>Call read( )</b> with the parameters <b>fd</b> (the file descriptor from which it will be reading), <b>buffer</b> (which is the array of characters that we allocate memory for) and BUFFER_SIZE (the number of characters to be read).</li>
+		<li>Alocate memory fot hte <b>buffer</b> variable to storage the character read</b></li>
+		<li><b>Call read( )</b> with the parameters <b>fd</b> (the file descriptor from which it will be reading), <b>buffer</b> (which is the array of characters that we allocate memory for) and <b>BUFFER_SIZE</b> (the number of characters to be read).</li>
 		<li>It will be on a loop that continues until reaches the end of the file or finds the <b>'\n'</b> (meaning a new line).</li>
 		<li>Call <b>add_to_strgs( )</b> on each iteration of the loop to add the content read to the static variable.</li>
-		<li>Call <b>check_for_new_line( )</b> to check if the static variable already contains the new line.
+		<li>Call <b>check_for_new_line( )</b> to check if the static variable already contains the new line.</li>
+	</ol>
+	<li>Check if the document is empty or if all the characters have already been read, and if so, return NULL.</li>
+	<li>Call <b>verify_newline( )</b> to get the string for the program to return. There are a few possible outcomes for this function:
+	<ol>
+		<li>There is a new line and nothing else after it. Therefore, the program will save everything in the variable <b>next_line</b> and the static variable will be empty.</li>
+		<li>There is a new line and more content after it. The <b>next_line</b> variable gets all the content up to the new line and the rest is kept in the static variable.</li>
+		<li>There is no new line, so it will save all the content stored in the static variable to <b>next_line</b>.</li>
+		<li>The first character is already a new line, so it saves only the new line in the <b>next_line</b> variable and keeps the rest in the static variable.</li>
+	<ol>
 </ol>
 </details>
 
+<details>
+	<summary>Bonus</summary>
+The bonus part of this program follows the exact same structure as the mandatory one, with the only difference being the static variable. In this case, it will be an array of char arrays that stores the values for each file descriptor (fd) sent to the program.
+<details>
 
 ## Code Setup
 <p>
