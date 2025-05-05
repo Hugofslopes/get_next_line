@@ -21,7 +21,7 @@
 </details>
 
 <details>
-	<summary><b>Get the line and save it to the statig variable</b></summary>
+	<summary><b>Get the line and save it to the static variable</b></summary>
 <ol>
     <li>Call <b>copy_fd( )</b> to read from the provided file descriptor.</b>
 	<ol>
